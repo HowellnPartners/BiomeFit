@@ -87,3 +87,32 @@ After launch, prime the caches — they hold old previews for a long time:
 **The share card art is a placeholder built from the logo and headline.** Once
 real photography lands, a shot of the studio behind a dark scrim will convert
 far better than a wordmark on black. Worth redoing then.
+
+## 6. The Collab form needs an endpoint
+
+`collab.html` has a working form, but **a static site cannot send email on its
+own.** Near the bottom of the file:
+
+```js
+var ENDPOINT = "";
+```
+
+Leave it empty and the form falls back to opening the visitor's mail app with
+everything pre-filled. That works today, but it is the weaker option: anyone
+without a configured mail client is stuck, and nothing is recorded if they
+never press send.
+
+Set it to a form-service URL and submissions POST as JSON instead, with a
+proper success message on the page:
+
+```js
+var ENDPOINT = "https://formspree.io/f/xxxxxxxx";
+```
+
+Formspree, Basin and Netlify Forms all have free tiers that suit this volume.
+Whichever is used, point it at **Hi@mybiomefit.com** and send Biomefit a test
+submission before launch so they know what an enquiry looks like.
+
+Already handled in the form: required-field validation with inline errors, a
+hidden honeypot that silently drops bot submissions, and category pre-selection
+when a visitor clicks one of the six blocks.

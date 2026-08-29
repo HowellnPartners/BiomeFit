@@ -366,3 +366,23 @@ footer{border-top:1px solid var(--line);padding-block:clamp(56px,8vh,96px)}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .hero h1 .ln>span{transform:none}.rv{opacity:1;transform:none}
 }
+
+/* ---------- print / PDF ----------
+   Scroll reveals start at opacity 0 and only fire on scroll, so without this
+   most of the page renders blank in a PDF. Also keeps the dark design intact
+   instead of letting the browser drop backgrounds. */
+@media print{
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  html,body{background:#000 !important}
+  .rv{opacity:1 !important;transform:none !important;transition:none !important}
+  .hero h1 .ln>span{transform:none !important;animation:none !important}
+  .hero .eyebrow,.hero-cta,.hero .sub{opacity:1 !important;animation:none !important}
+  .nav{position:static !important;background:#000 !important;backdrop-filter:none !important}
+  .menu,.scroll-hint{display:none !important}
+  .hero{min-height:78vh}
+  .marquee-track{animation:none !important;transform:none !important}
+  .statbar-lead,.statbar-set{opacity:1 !important;transform:none !important}
+  section,.pillars,.contact,footer{break-inside:avoid;page-break-inside:avoid}
+  .hero,.overlay,.band{break-after:auto}
+  a[href]::after{content:"" !important}
+}

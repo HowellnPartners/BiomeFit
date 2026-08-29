@@ -55,7 +55,8 @@
 
 /* hero — their own neon room, wordmark set as a sign */
 .bz-hero{position:relative;min-height:92svh;display:flex;align-items:flex-end;overflow:hidden}
-.bz-hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bz-hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:50% 22%}   /* keep faces in frame on tall screens */
 .bz-hero::after{
   content:"";position:absolute;inset:0;
   background:linear-gradient(to top,#000 2%,rgba(0,0,0,.45) 34%,transparent 66%,rgba(0,0,0,.55) 100%);

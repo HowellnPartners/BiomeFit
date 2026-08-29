@@ -67,7 +67,7 @@ the filter — that will look better and read more sharply.
 - **Opening hours** — the contact block currently says "TO CONFIRM" on the page.
 - **Photography.** Every image slot is currently the header video seeked to a
   different timestamp. Real stills needed.
-- **Hero video is 7.4MB** (12s, 720p, from the 41MB 4K original). Target 2–3MB.
+- **Hero video is 8.3MB** (12s, 720p, from the 41MB 4K original). Target 2–3MB.
   Media Encoder: H.264, 1920×1080, VBR 2-pass, target ~2.5 Mbps, max 4 Mbps,
   **no audio track**, 8–12s. Autoplay requires muted, so the audio is dead weight.
 - **Fonts** — Inter Tight is a placeholder. Whatever face is chosen must be
@@ -142,3 +142,19 @@ submission before launch so they know what an enquiry looks like.
 Already handled in the form: required-field validation with inline errors, a
 hidden honeypot that silently drops bot submissions, and category pre-selection
 when a visitor clicks one of the six blocks.
+
+
+## 7. The hero video still contains an audio track
+
+`avconvert` (the only transcoder on this machine) has no way to drop audio —
+checked the mp4 atoms directly and the sound track survives every preset. The
+`<video>` is `muted` so nothing ever plays, but roughly 750KB of audio data
+still downloads on every visit.
+
+Media Encoder can strip it properly: on export, **uncheck "Export Audio"**.
+Worth doing on the same pass that gets the file down to ~2-3MB:
+
+    H.264 · 1920x1080 · VBR 2-pass · target 2.5 Mbps, max 4 Mbps
+    no audio · 8-12 seconds
+
+Source master is `BBzVideo-HomepageHero.mp4` (126MB, 4K, 19s).

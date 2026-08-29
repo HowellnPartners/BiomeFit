@@ -1,7 +1,10 @@
 .DS_Store
 
-# Source masters — too heavy for git, keep them local
-assets/video/Homepage-Web-HeaderVideo.mp4
+# Source masters — too heavy for git (GitHub rejects >100MB), keep them local.
+# Only the web-ready derivatives are committed.
+assets/video/*
+!assets/video/hero-web-720.mp4
+!assets/video/hero-poster.jpg
 assets/logos/EPS/
 
 # Reference material, not part of the site

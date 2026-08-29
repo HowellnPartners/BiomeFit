@@ -69,15 +69,8 @@
   background:linear-gradient(to top,#000 2%,rgba(0,0,0,.45) 34%,transparent 66%,rgba(0,0,0,.55) 100%);
 }
 .bz-hero .wrap{position:relative;z-index:2;width:100%;padding-block:130px clamp(46px,8vh,96px)}
-.wordmark{margin:16px 0 24px;width:min(560px,82vw)}
-.wordmark img{
-  width:100%;height:auto;display:block;
-  filter:
-    drop-shadow(0 0 5px rgba(246,126,234,.85))
-    drop-shadow(0 0 22px rgba(240,60,222,.7))
-    drop-shadow(0 0 58px rgba(240,60,222,.45))
-    drop-shadow(0 0 110px rgba(142,26,134,.4));
-}
+.wordmark{margin:18px 0 30px;width:min(620px,84vw)}
+.wordmark img{width:100%;height:auto;display:block}
 .bz-hero .lede{max-width:44ch;color:#d8d2d6}
 .bz-cta{display:flex;gap:11px;flex-wrap:wrap;margin-top:32px}
 
@@ -91,41 +84,57 @@
 }
 .creed em{font-style:normal;color:var(--pink)}
 
-/* A / B — two halves of one program */
-.ab{display:grid;grid-template-columns:1fr;gap:1px;background:var(--bz-line);
-  border-bottom:1px solid var(--bz-line)}
-.ab-card{background:#000;padding:clamp(30px,4vw,62px);position:relative;overflow:hidden}
-.ab-card::before{
-  content:"";position:absolute;left:0;right:0;top:0;height:2px;
-  background:linear-gradient(90deg,var(--pink),transparent 72%);
+/* A / B — centred intro, then two cards */
+.prog{padding-block:clamp(80px,14vh,180px);text-align:center}
+.prog .badge{margin-bottom:22px}
+.prog h2{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(26px,4vw,54px);line-height:1.06;letter-spacing:-.035em;
+  max-width:22ch;margin:0 auto 22px;
 }
-.ab-card:nth-child(2)::before{background:linear-gradient(90deg,var(--blue),transparent 72%)}
-.ab-letter{
-  font-family:var(--font-display);font-weight:800;font-size:clamp(60px,9vw,130px);
-  line-height:.8;letter-spacing:-.06em;color:transparent;
-  -webkit-text-stroke:1.5px var(--pink);margin-bottom:8px;
-}
-.ab-card:nth-child(2) .ab-letter{-webkit-text-stroke-color:var(--blue)}
-.ab-days{font-family:var(--font-display);font-size:11px;font-weight:600;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--pink);margin-bottom:18px}
-.ab-card:nth-child(2) .ab-days{color:var(--blue)}
-.ab-card h3{font-family:var(--font-display);font-weight:600;
-  font-size:clamp(22px,2.4vw,32px);letter-spacing:-.03em;margin-bottom:12px}
-.ab-card p{color:var(--ink-dim);font-size:15.5px;line-height:1.7;max-width:40ch}
-.pairs{display:flex;align-items:center;gap:10px;margin-top:24px;
-  font-family:var(--font-display);font-size:12px;font-weight:600;color:var(--ink)}
-.pairs i{width:26px;height:26px;border-radius:999px;border:1px solid var(--bz-line);
-  display:grid;place-items:center;font-style:normal;font-size:11px;color:var(--pink)}
-.ab-card:nth-child(2) .pairs i{color:var(--blue)}
+.prog .lede{max-width:60ch;margin:0 auto}
 
-/* photo + copy */
-.bz-split{display:grid;grid-template-columns:1fr}
-.bz-split-media{position:relative;min-height:60vh;overflow:hidden;background:#0A050A}
-.bz-split-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.bz-split-body{padding:clamp(44px,6vw,104px) var(--pad);display:flex;flex-direction:column;justify-content:center}
-.bz-split-body h2{font-family:var(--font-display);font-weight:600;
-  font-size:clamp(26px,3.4vw,50px);letter-spacing:-.035em;line-height:1.04;margin:18px 0 18px}
-.bz-split-body .lede{max-width:44ch}
+.cards{
+  display:grid;grid-template-columns:1fr;gap:clamp(14px,2vw,22px);
+  margin-top:clamp(44px,7vh,80px);text-align:left;
+}
+.card{
+  background:#121013;border:1px solid var(--bz-line);border-radius:26px;
+  padding:clamp(28px,3.4vw,44px);display:flex;flex-direction:column;
+}
+.card h3{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(23px,2.4vw,32px);letter-spacing:-.02em;text-transform:uppercase;
+  margin-bottom:10px;
+}
+.card .card-days{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(16px,1.5vw,20px);color:var(--pink);margin-bottom:22px;
+}
+.card p{color:var(--ink-dim);font-size:15.5px;line-height:1.75;margin-bottom:28px}
+.card .pair{
+  font-size:13px;color:var(--ink-faint);margin-bottom:26px;
+}
+.card .card-cta{
+  margin-top:auto;display:block;text-align:center;
+  border:1px solid var(--pink);border-radius:999px;color:var(--pink);
+  font-family:var(--font-display);font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;padding:15px 20px;
+  transition:background .3s ease,color .3s ease;
+}
+.card .card-cta:hover{background:var(--pink);color:var(--ink-pink)}
+@media (min-width:760px){ .cards{grid-template-columns:1fr 1fr} }
+
+/* a photograph on its own, full width */
+.plate{position:relative;height:clamp(360px,72vh,780px);overflow:hidden;background:#0A050A}
+.plate img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* stacked copy blocks, generous */
+.bz-sec{padding-block:clamp(88px,15vh,200px)}
+.bz-lead{font-family:var(--font-display);font-weight:600;
+  font-size:clamp(26px,4vw,58px);line-height:1.06;letter-spacing:-.035em;
+  max-width:19ch;margin:20px 0 26px}
+.measure{max-width:56ch}
 
 /* closing band */
 .bz-band{position:relative;text-align:center;padding-block:clamp(76px,12vh,150px);overflow:hidden;
@@ -141,10 +150,6 @@
   margin:20px auto 30px;max-width:14ch}
 
 @media (min-width:820px){
-  .ab{grid-template-columns:1fr 1fr}
-  .bz-split{grid-template-columns:1fr 1fr}
-  .bz-split-media{min-height:100%}
-  .bz-split.flip .bz-split-media{order:2}
 }
 </style>
 </head>
@@ -183,7 +188,7 @@
   <div class="wrap">
     <a class="backlink" href="index.html" data-back><span aria-hidden="true">&larr;</span>Back</a>
     <span class="badge">Women only · Water Street, Tampa</span>
-    <h1 class="wordmark"><img src="assets/babez/web/babez-white.png" alt="Booty Babez"></h1>
+    <h1 class="wordmark"><img src="assets/babez/web/babez-pink.png" alt="Babez"></h1>
     <p class="lede">A room built for women, run by women, where nobody is watching you learn. Two glute-focused workouts designed to pair across the week.</p>
     <div class="bz-cta">
       <a class="btn btn--gold" href="schedule.html"><span>Book a class</span><span class="ar">&rarr;</span></a>
@@ -192,56 +197,50 @@
   </div>
 </header>
 
-<!-- ===== THESIS ===== -->
+<!-- the line -->
 <section class="creed">
   <div class="wrap">
     <p class="rv">A safe gym for <em>girls only.</em></p>
   </div>
 </section>
 
-<!-- ===== A / B ===== -->
-<section id="program">
-  <div class="wrap" style="padding-block:clamp(60px,9vh,110px) clamp(28px,4vh,44px)">
+<!-- the room, full width, nothing on top of it -->
+<div class="plate"><img src="assets/babez/web/floor.jpg" alt="The Babez training floor under magenta and blue light"></div>
+
+<!-- program -->
+<section class="prog" id="program">
+  <div class="wrap">
     <span class="badge rv">The program</span>
-    <h2 class="rv" style="font-family:var(--font-display);font-weight:600;font-size:clamp(24px,3.2vw,46px);letter-spacing:-.035em;margin:18px 0 14px">Two workouts. One week.</h2>
-    <p class="lede rv" style="max-width:52ch">A and B aren't beginner and advanced — they're two halves of the same program. Do one, do both. They're built to pair.</p>
-  </div>
-  <div class="ab">
-    <div class="ab-card rv">
-      <div class="ab-letter">A</div>
-      <div class="ab-days">Monday &ndash; Wednesday</div>
-      <h3>Booty Babez (A)</h3>
-      <p>Targets total glute development for strength and shape.</p>
-      <div class="pairs"><i>+</i> Pairs with workout B</div>
-    </div>
-    <div class="ab-card rv">
-      <div class="ab-letter">B</div>
-      <div class="ab-days">Thursday &ndash; Saturday</div>
-      <h3>Workout B</h3>
-      <p>Total glute development with an emphasis on upper glutes, for a lifted, rounded look.</p>
-      <div class="pairs"><i>+</i> Pairs with workout A</div>
+    <h2 class="rv">Two workouts. One week.</h2>
+    <p class="lede rv">A and B aren't beginner and advanced. They're two halves of the same programme, split across the week — A runs Monday to Wednesday, B from Thursday. Do one, do both. They're built to pair.</p>
+
+    <div class="cards">
+      <div class="card rv">
+        <h3>Booty Babez (A)</h3>
+        <div class="card-days">Monday &ndash; Wednesday</div>
+        <p>Targets total glute development for strength and shape.</p>
+        <p class="pair">Pairs with workout B.</p>
+        <a class="card-cta" href="schedule.html">Book workout A</a>
+      </div>
+      <div class="card rv">
+        <h3>Workout B</h3>
+        <div class="card-days">Thursday &ndash; Saturday</div>
+        <p>Total glute development with an emphasis on upper glutes, for a lifted, rounded look.</p>
+        <p class="pair">Pairs with workout A.</p>
+        <a class="card-cta" href="schedule.html">Book workout B</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===== THE ROOM ===== -->
-<section class="bz-split">
-  <div class="bz-split-media"><img src="assets/babez/web/floor.jpg" alt="Rows of equipment on the Booty Babez floor under magenta and blue light"></div>
-  <div class="bz-split-body">
-    <span class="badge rv">The room</span>
-    <h2 class="rv">Nobody is watching you learn.</h2>
-    <p class="lede rv">The whole floor is set up for the work — racks, benches and machines, all of it available, none of it queued behind someone waiting for you to finish. Come in knowing exactly what you're doing or come in knowing nothing at all.</p>
-  </div>
-</section>
+<!-- the people, full width -->
+<div class="plate"><img src="assets/babez/web/crew.jpg" alt="Babez members training together"></div>
 
-<!-- ===== THE PEOPLE ===== -->
-<section class="bz-split flip">
-  <div class="bz-split-media"><img src="assets/babez/web/crew.jpg" alt="Two Booty Babez members training together"></div>
-  <div class="bz-split-body">
+<section class="bz-sec">
+  <div class="wrap">
     <span class="badge rv">The people</span>
-    <h2 class="rv">You'll know their names by week two.</h2>
-    <p class="lede rv">The same faces turn up to the same slots. That's the point — it's a room you come back to, not one you disappear into. Coaches scale every movement, so the person next to you being stronger changes nothing about your session.</p>
-    <div class="rv" style="margin-top:30px"><a class="btn" href="schedule.html"><span>See the schedule</span><span class="ar">&rarr;</span></a></div>
+    <h2 class="bz-lead rv">You'll know their names by week two.</h2>
+    <p class="lede measure rv">The same faces turn up to the same slots. That's the point — a room you come back to, not one you disappear into. Coaches scale every movement, so the person next to you being stronger changes nothing about your session.</p>
   </div>
 </section>
 

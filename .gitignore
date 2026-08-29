@@ -1,0 +1,8 @@
+.DS_Store
+
+# Source masters — too heavy for git, keep them local
+assets/video/Homepage-Web-HeaderVideo.mp4
+assets/logos/EPS/
+
+# Reference material, not part of the site
+inspo/

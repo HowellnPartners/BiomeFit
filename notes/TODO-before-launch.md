@@ -56,3 +56,34 @@ Now using the real PNGs from `assets/logos/PNG/White/`. Only the nav still shows
 a logo; the small marks were pulled from the badges, hero, footer and map pin.
 Vector (SVG) would still be better than PNG for the nav — one export from
 Illustrator when convenient.
+
+## 5. Social share cards + favicon
+
+Added in `assets/social/`:
+
+| File | Used for |
+|---|---|
+| `og-image.jpg` (1200×630) | the card shown when the link is shared |
+| `og-square.jpg` (1200×1200) | square fallback for some feeds |
+| `favicon.ico` (16/32/48/64) | browser tab |
+| `favicon-32.png`, `favicon-192.png`, `favicon-512.png` | modern browsers, Android |
+| `apple-touch-icon.png` (180×180) | iOS home screen — opaque, iOS ignores transparency |
+
+Both pages carry Open Graph + Twitter Card tags, a canonical URL and a
+description.
+
+**These only work once the site is live.** `og:image` has to be an absolute
+URL, so it currently points at `https://www.mybiomefit.com/assets/social/…`.
+Sharing a `localhost` or GitHub Pages URL will show no image. When the real
+domain is settled, if it is anything other than `www.mybiomefit.com`, update
+the `og:url`, `og:image`, `twitter:image` and `canonical` values in both
+`index.html` and `schedule.html`.
+
+After launch, prime the caches — they hold old previews for a long time:
+- Facebook / Instagram: developers.facebook.com/tools/debug → Scrape Again
+- LinkedIn: linkedin.com/post-inspector
+- Twitter/X: cards-dev.twitter.com/validator
+
+**The share card art is a placeholder built from the logo and headline.** Once
+real photography lands, a shot of the studio behind a dark scrim will convert
+far better than a wordmark on black. Worth redoing then.

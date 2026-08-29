@@ -217,7 +217,7 @@ body.open .menu-foot{opacity:1}
 .sec-tag::before,.sec-tag::after{content:"";height:1px;width:32px;background:var(--gold-deep);opacity:.6}
 
 .statement{text-align:center}
-.statement h2{font-size:clamp(28px,4.4vw,66px);margin-inline:auto;max-width:17ch;margin-bottom:30px}
+.statement h2{font-size:clamp(28px,4.4vw,66px);margin-inline:auto;max-width:24ch;margin-bottom:30px}
 .statement .lede{max-width:60ch;margin-inline:auto}
 
 /* pillars */

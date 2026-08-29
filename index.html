@@ -27,7 +27,7 @@
 </defs></svg>
 
 <nav class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="Biomefit — home">
+  <a class="brand" href="index.html" aria-label="Biomefit — home">
     <img src="assets/logo/lockup-h-white.png" alt="Biomefit">
   </a>
   <div class="nav-right">
@@ -212,37 +212,11 @@
   </div>
 </footer>
 
+<!-- Stat ticker content. EVERY NUMBER HERE IS AN UNVERIFIED PLACEHOLDER —
+     confirm with Biomefit before launch. Rows still reading "XX" must be
+     filled in or deleted. See notes/TODO-before-launch.md -->
 <script>
-/* ---- string-art mark ---- */
-(function(){
-  var NS="http://www.w3.org/2000/svg",R=100,N=8,SPAN=0.58;
-  function v(k){var a=(-90+120*k)*Math.PI/180;return[R*Math.cos(a),R*Math.sin(a)];}
-  var A=v(0),B=v(1),C=v(2);
-  function L(P,Q,t){return[P[0]+(Q[0]-P[0])*t,P[1]+(Q[1]-P[1])*t];}
-  var segs=[];
-  [[A,B,C],[B,C,A],[C,A,B]].forEach(function(t){
-    var V=t[0],P=t[1],Q=t[2];
-    for(var i=0;i<=N;i++) segs.push([V,L(P,Q,(i/N)*SPAN)]);
-  });
-  segs.push([A,B],[B,C],[C,A]);
-  document.querySelectorAll('.mk').forEach(function(g){
-    segs.forEach(function(s,i){
-      var l=document.createElementNS(NS,'line');
-      l.setAttribute('x1',s[0][0].toFixed(2));l.setAttribute('y1',s[0][1].toFixed(2));
-      l.setAttribute('x2',s[1][0].toFixed(2));l.setAttribute('y2',s[1][1].toFixed(2));
-      l.style.setProperty('--len',Math.hypot(s[1][0]-s[0][0],s[1][1]-s[0][1]).toFixed(1));
-      l.style.animationDelay=(i*0.024)+'s';
-      g.appendChild(l);
-    });
-  });
-})();
-
-
-/* ---- stat ticker ----
-   EDIT HERE. Every number below is a placeholder from the brief and is NOT
-   verified — confirm each one with Biomefit before this goes live. Anything
-   still reading "XX" must be filled in or that row deleted.               */
-var STAT_SETS=[
+window.STAT_SETS=[
   {lead:"Strength training that does more.",stats:[
     {n:"&lt; 2 hrs",l:"per week to see results"},
     {n:"6",l:"targeted training blocks per class"},
@@ -256,87 +230,7 @@ var STAT_SETS=[
     {n:"XX,000+",l:"total reps"},
     {n:"XX",l:"average class size"}]}
 ];
-(function(){
-  var lead=document.getElementById('sbLead'),set=document.getElementById('sbSet'),dots=document.getElementById('sbDots');
-  if(!lead) return;
-  STAT_SETS.forEach(function(_,i){var d=document.createElement('i');if(!i)d.className='on';dots.appendChild(d);});
-  function paint(i){
-    var s=STAT_SETS[i];
-    lead.innerHTML=s.lead;
-    set.innerHTML=s.stats.map(function(x){return '<div><b>'+x.n+'</b><span>'+x.l+'</span></div>';}).join('');
-    [].forEach.call(dots.children,function(d,j){d.className=j===i?'on':'';});
-  }
-  paint(0);
-  var i=0;
-  setInterval(function(){
-    lead.classList.add('out');set.classList.add('out');
-    setTimeout(function(){
-      i=(i+1)%STAT_SETS.length;paint(i);
-      lead.classList.remove('out');set.classList.remove('out');
-    },460);
-  },4600);
-})();
-
-/* ---- keep background video playing ----
-   autoplay gets blocked or silently paused (tab hidden, low-power mode,
-   Safari's power saver). Nudge it back whenever it stops.            */
-(function(){
-  var vids=[].slice.call(document.querySelectorAll('video[autoplay]'));
-  function kick(v){
-    v.muted=true;                 // must be set as a property, not just the attribute
-    v.playsInline=true;
-    var pr=v.play();
-    if(pr&&pr.catch) pr.catch(function(){});
-  }
-  function kickAll(){vids.forEach(function(v){if(v.paused)kick(v);});}
-  vids.forEach(function(v){
-    kick(v);
-    v.addEventListener('loadeddata',function(){kick(v);});
-    v.addEventListener('pause',function(){            // resume unless the page is genuinely hidden
-      if(!document.hidden) setTimeout(function(){kick(v);},80);
-    });
-  });
-  document.addEventListener('visibilitychange',function(){if(!document.hidden)kickAll();});
-  addEventListener('pageshow',kickAll);
-  addEventListener('focus',kickAll);
-  // first user gesture unblocks anything a policy refused
-  ['pointerdown','touchstart','keydown'].forEach(function(e){
-    addEventListener(e,kickAll,{once:true,passive:true});
-  });
-})();
-
-/* ---- hamburger ---- */
-var burger=document.getElementById('burger');
-burger.addEventListener('click',function(){
-  var open=document.body.classList.toggle('open');
-  document.body.classList.toggle('lock',open);
-  burger.setAttribute('aria-expanded',open?'true':'false');
-  burger.setAttribute('aria-label',open?'Close menu':'Open menu');
-});
-document.querySelectorAll('.menu-list a').forEach(function(a){
-  a.addEventListener('click',function(){
-    document.body.classList.remove('open','lock');
-    burger.setAttribute('aria-expanded','false');
-  });
-});
-addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&document.body.classList.contains('open')){
-    document.body.classList.remove('open','lock');
-    burger.setAttribute('aria-expanded','false');
-  }
-});
-
-/* ---- nav bg ---- */
-var nav=document.getElementById('nav');
-addEventListener('scroll',function(){nav.classList.toggle('stuck',scrollY>40);},{passive:true});
-
-/* ---- reveals ---- */
-var io=new IntersectionObserver(function(es){
-  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-},{threshold:.14,rootMargin:'0px 0px -8% 0px'});
-document.querySelectorAll('.rv').forEach(function(el,i){
-  el.style.transitionDelay=((i%4)*0.07)+'s';io.observe(el);
-});
 </script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

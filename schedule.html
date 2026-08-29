@@ -13,6 +13,15 @@
 
 <style>
 /* ---------- schedule page ---------- */
+.backlink{
+  display:inline-flex;align-items:center;gap:9px;margin-bottom:22px;
+  font-family:var(--font-display);font-size:12px;font-weight:600;
+  color:var(--ink-dim);transition:color .25s ease;
+}
+.backlink span{transition:transform .3s cubic-bezier(.2,.75,.3,1)}
+.backlink:hover{color:var(--ink)}
+.backlink:hover span{transform:translateX(-4px)}
+
 .page-head{padding:clamp(120px,17vh,190px) 0 clamp(34px,5vh,60px)}
 .page-head h1{
   font-family:var(--font-display);font-weight:600;
@@ -67,6 +76,7 @@
 
 <header class="page-head">
   <div class="wrap">
+    <a class="backlink" href="index.html" data-back><span aria-hidden="true">&larr;</span>Back</a>
     <span class="badge">Water Street · Tampa</span>
     <h1>Book a class.</h1>
     <p class="lede">Pick a time that works, reserve your spot, and we'll see you on the floor. New here? Any class on the schedule is a fine place to start — the coaches scale it to you.</p>
@@ -109,21 +119,7 @@
   </div>
 </footer>
 
-<script>
-/* hamburger */
-var burger=document.getElementById('burger');
-burger.addEventListener('click',function(){
-  var open=document.body.classList.toggle('open');
-  document.body.classList.toggle('lock',open);
-  burger.setAttribute('aria-expanded',open?'true':'false');
-  burger.setAttribute('aria-label',open?'Close menu':'Open menu');
-});
-addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&document.body.classList.contains('open')){
-    document.body.classList.remove('open','lock');burger.setAttribute('aria-expanded','false');
-  }
-});
-</script>
+<script src="assets/site.js" defer></script>
 
 <!-- Mariana Tek loader — must run on every page that hosts an embed -->
 <script>

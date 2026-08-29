@@ -278,6 +278,34 @@ var STAT_SETS=[
   },4600);
 })();
 
+/* ---- keep background video playing ----
+   autoplay gets blocked or silently paused (tab hidden, low-power mode,
+   Safari's power saver). Nudge it back whenever it stops.            */
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('video[autoplay]'));
+  function kick(v){
+    v.muted=true;                 // must be set as a property, not just the attribute
+    v.playsInline=true;
+    var pr=v.play();
+    if(pr&&pr.catch) pr.catch(function(){});
+  }
+  function kickAll(){vids.forEach(function(v){if(v.paused)kick(v);});}
+  vids.forEach(function(v){
+    kick(v);
+    v.addEventListener('loadeddata',function(){kick(v);});
+    v.addEventListener('pause',function(){            // resume unless the page is genuinely hidden
+      if(!document.hidden) setTimeout(function(){kick(v);},80);
+    });
+  });
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)kickAll();});
+  addEventListener('pageshow',kickAll);
+  addEventListener('focus',kickAll);
+  // first user gesture unblocks anything a policy refused
+  ['pointerdown','touchstart','keydown'].forEach(function(e){
+    addEventListener(e,kickAll,{once:true,passive:true});
+  });
+})();
+
 /* ---- hamburger ---- */
 var burger=document.getElementById('burger');
 burger.addEventListener('click',function(){

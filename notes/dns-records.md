@@ -1,74 +1,77 @@
-# Squarespace DNS — exactly what to change
+# Squarespace DNS — record by record
 
-Domain: **mybiomefit.com** · Panel: Squarespace → Domains → mybiomefit.com →
-DNS Settings.
+Domain: **mybiomefit.com** · Squarespace → Domains → DNS Settings → Custom records
 
-## Rule
+There are **9 records** in that panel. Only **2** get touched.
 
-Only touch **A**, **AAAA** and the **www CNAME**.
-**Do not touch MX or TXT.** Those route Google Workspace mail. Removing them
-stops `Hi@mybiomefit.com` receiving immediately, and mail sent during the gap
-bounces rather than queuing.
+## ✏️ CHANGE — 1 record
 
-Before editing anything, screenshot the whole panel. If something breaks that
-screenshot is the fastest way back.
+| Type | Name | Current | Change to |
+|---|---|---|---|
+| CNAME | `www` | `mybiomefit.com` | `howellnpartners.github.io` |
 
-## Remove
+No repo name, no path, no `https://`. Just the host.
 
-| Type | Host | Value |
+## ❌ REMOVE — 1 record
+
+| Type | Name | Data | Why |
+|---|---|---|---|
+| A | `@` | `151.101.2.159` | old Flywheel/WordPress |
+
+## ➕ ADD — 4 records
+
+| Type | Name | Data |
 |---|---|---|
-| A | @ | 151.101.2.159 | ← old Flywheel/WordPress |
-| CNAME or A | www | (whatever points at Flywheel) |
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
 
-## Add
+All four are needed — GitHub's load balancers, not alternatives. AAAA records
+are optional; add them only if Squarespace offers the type.
 
-| Type | Host | Value |
+## ✅ LEAVE ALONE — 7 records
+
+These look like leftovers from the old site. **They are not.** Every one is
+live infrastructure with nothing to do with hosting.
+
+| Type | Name | What it actually does |
 |---|---|---|
-| A | @ | 185.199.108.153 |
-| A | @ | 185.199.109.153 |
-| A | @ | 185.199.110.153 |
-| A | @ | 185.199.111.153 |
-| AAAA | @ | 2606:50c0:8000::153 |
-| AAAA | @ | 2606:50c0:8001::153 |
-| AAAA | @ | 2606:50c0:8002::153 |
-| AAAA | @ | 2606:50c0:8003::153 |
-| CNAME | www | howellnpartners.github.io |
+| CNAME | `em6496` | **SendGrid** — the sending domain for transactional email |
+| CNAME | `s1._domainkey` | **SendGrid DKIM** — signs outgoing mail |
+| CNAME | `s2._domainkey` | **SendGrid DKIM** — second key |
+| CNAME | `2wj2n2isuhzp` | Google domain verification |
+| CNAME | `iivwe4rgjoo5` | Google domain verification |
+| CNAME | `lbs4kv4cbble` | Google domain verification |
+| MX | `@` (×5) | Google Workspace — inbound mail |
 
-All four A records are needed — they are GitHub's load balancers, not
-alternatives. The CNAME value has **no** repo name and **no** trailing path,
-just the account host.
+Plus the TXT records not visible in the first screen: SPF
+(`v=spf1 include:_spf.google.com ~all`), DMARC (`v=DMARC1; p=none;`) and the
+Google DKIM key at `google._domainkey`.
 
-## Leave exactly as they are
+### Why the SendGrid records matter
 
-```
-MX   1  aspmx.l.google.com
-MX   5  alt1.aspmx.l.google.com
-MX   5  alt2.aspmx.l.google.com
-MX  10  alt3.aspmx.l.google.com
-MX  10  alt4.aspmx.l.google.com
-TXT     v=spf1 include:_spf.google.com ~all
-```
+Somebody is sending automated email as `@mybiomefit.com` through SendGrid.
+On a fitness studio that is almost always the booking platform — class
+confirmations, receipts, waitlist notices, password resets. It could also be a
+marketing tool.
 
-Plus any other TXT records — domain verification, DKIM. Deleting a DKIM record
-will not stop mail arriving but will hurt deliverability of mail they send.
+Delete `em6496` and those sends break. Delete either `_domainkey` record and
+the mail still sends but loses its DKIM signature, so Gmail and Outlook start
+binning it as spam — which is worse, because it fails quietly and nobody
+notices for weeks.
 
-## Then
+**Worth confirming with Rob what's on that SendGrid account before launch**,
+since it is sending mail in their name and neither of us set it up.
 
-1. GitHub → repo → Settings → Pages → Custom domain: `www.mybiomefit.com`.
-   The repo already contains a `CNAME` file with that value.
-2. Wait for the DNS check to go green. Usually minutes, up to a few hours.
-3. Tick **Enforce HTTPS**. It stays greyed out until the certificate issues —
-   that can take up to an hour. Do not delete the Flywheel site before this.
-4. Check both `mybiomefit.com` and `www.mybiomefit.com` load, and that
-   http:// redirects to https://.
-
-## Verifying from the terminal
+## Sanity check afterwards
 
 ```bash
-dig +short A mybiomefit.com
-dig +short CNAME www.mybiomefit.com
-dig +short MX mybiomefit.com
+dig +short A mybiomefit.com          # four 185.199.x.153
+dig +short CNAME www.mybiomefit.com  # howellnpartners.github.io.
+dig +short MX mybiomefit.com         # unchanged, five Google entries
+dig +short CNAME em6496.mybiomefit.com s1._domainkey.mybiomefit.com
 ```
 
-The A records should be the four 185.199.x.153 addresses, www should be
-`howellnpartners.github.io.`, and the MX list must be unchanged from above.
+If the last line comes back empty, a SendGrid record was removed — put it back
+from `dns-baseline.md`.

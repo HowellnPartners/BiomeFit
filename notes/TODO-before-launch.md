@@ -9,8 +9,18 @@ Replaced with sourced figures. Kept below for the reasoning.
   37 are FLEX 10-minute booking slots. Summing all of them gives 5,253, which
   is *not* classes taught. Only the Biome room counts.
 - **400+ classes on the schedule** — `upcoming_class_count`, 415.
-- **100+ members** and **since 2024** — confirmed by Biomefit; the earliest
-  classroom record is 2024-01-26, consistent.
+- **100+ members** and **2020** — confirmed by Biomefit. 2020 is when Biomefit
+  started coaching, at a **previous location**; the Water Street space dates to
+  2024, matching the earliest Mariana Tek record (2024-01-26).
+
+  The label deliberately reads **"coaching Tampa since"**, not "training here
+  since" — "here" would date the Water Street studio to 2020, which is false.
+
+  Same reason the class count is conservative: 3,095 covers only what has run
+  through Mariana Tek since 2024. Four years of earlier classes are not in it,
+  so "3,000+" understates the real total. That is the safe direction to be
+  wrong in, but if Biomefit has records from the old location the figure could
+  legitimately go up.
 - **7 days**, **60 min** — published hours and schedule.
 
 The invented 4.7★ rating and the XX rows are gone. Opening hours are now real

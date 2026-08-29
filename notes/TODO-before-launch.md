@@ -1,6 +1,22 @@
 # Before this goes live
 
-## 1. The stat ticker numbers are NOT verified
+## 1. ~~The stat ticker numbers are NOT verified~~ — RESOLVED 2026-08-29
+
+Replaced with sourced figures. Kept below for the reasoning.
+
+- **3,000+ classes taught** — Mariana Tek `historical_class_count` for the
+  Biome floor: 3,095 on 2026-08-29. Note the API lists 41 "classrooms", but
+  37 are FLEX 10-minute booking slots. Summing all of them gives 5,253, which
+  is *not* classes taught. Only the Biome room counts.
+- **400+ classes on the schedule** — `upcoming_class_count`, 415.
+- **100+ members** and **since 2024** — confirmed by Biomefit; the earliest
+  classroom record is 2024-01-26, consistent.
+- **7 days**, **60 min** — published hours and schedule.
+
+The invented 4.7★ rating and the XX rows are gone. Opening hours are now real
+too. Original note follows.
+
+### Original note
 
 `index.html` → search `STAT_SETS`. Every figure in there came from the brief as
 a placeholder. Three of them still literally read **XX** and will render as

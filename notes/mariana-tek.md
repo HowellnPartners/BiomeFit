@@ -115,3 +115,40 @@ preference:
 
 Do NOT try to CSS-invert or filter the iframe — it's cross-origin, and a
 `filter: invert()` hack wrecks the class photos and instructor headshots.
+
+---
+
+## Live on the site — 2026-08-29
+
+Built as **`schedule.html`**, a dedicated page (Mariana Tek recommends one page
+per snippet, and it keeps the white widget off the black homepage).
+
+Verified rendering: real classes with instructor names and photos —
+Booty Babez 8:15 and 9:30 with Rob, Upper Body & Abs 10:45 with JoJo — plus
+working Reserve buttons. No API key needed for the public schedule view.
+
+All nine booking CTAs across the homepage now link to `schedule.html`, so
+"Book a class" lands on the real booking flow.
+
+### Cookie banner
+
+The widget shows Mariana Tek's own **"This site uses cookies"** banner inside
+the iframe on first visit, with Accept All / Manage Settings. It sits at the top
+of the panel and pushes the schedule down until the visitor answers it.
+
+That banner is theirs and it is inside a cross-origin iframe — we cannot style
+it, move it, or pre-answer it. Two things follow:
+
+1. Booking needs cookies. If a visitor declines, the login and reservation flow
+   may not complete. Worth knowing before anyone reports it as a bug.
+2. If Biomefit finds the double-banner awkward (ours plus theirs), the consent
+   configuration lives in the Mariana Tek admin, not here.
+
+### To improve later
+
+The widget is light-themed. Right now `schedule.html` frames it as a deliberate
+white panel with a rounded corner and a drop shadow, which reads as intentional.
+If Biomefit enables **Developer Mode / Mariana Tools** on their account, the
+widget colours can be darkened from the Mariana Tek admin and the panel can go
+fully black to match the rest of the site. That is an account setting on their
+side — ask them for it.

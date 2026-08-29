@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Schedule — Biomefit · Water Street, Tampa</title>
+<meta name="description" content="Book a class at Biomefit in Water Street, Downtown Tampa. Strength, conditioning and recovery.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..900;1,300..900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+
+<style>
+/* ---------- schedule page ---------- */
+.page-head{padding:clamp(120px,17vh,190px) 0 clamp(34px,5vh,60px)}
+.page-head h1{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(38px,7vw,92px);line-height:1;letter-spacing:-.035em;margin:22px 0 18px;
+}
+.page-head .lede{max-width:52ch}
+
+/* The Mariana Tek widget renders light and we cannot restyle inside a
+   cross-origin iframe — so frame it deliberately as a panel rather than
+   letting it collide with the black page. */
+.booking{
+  background:#fff;border-radius:var(--rc-lg,28px);overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 90px -30px rgba(0,0,0,.9);
+  margin-bottom:clamp(50px,8vh,110px);min-height:640px;
+}
+.booking [data-mariana-integrations]{min-height:640px}
+.booking-note{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-bottom:14px;color:var(--ink-faint);font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;
+}
+.booking-note span{width:5px;height:5px;border-radius:999px;background:var(--gold);flex:none}
+.noscript-fallback{padding:60px 24px;text-align:center;color:#111;font-family:var(--font-body)}
+</style>
+</head>
+<body id="top">
+
+<nav class="nav stuck" id="nav">
+  <a class="brand" href="index.html" aria-label="Biomefit — home">
+    <img src="assets/logo/lockup-h-white.png" alt="Biomefit">
+  </a>
+  <div class="nav-right">
+    <a class="btn btn--gold" href="#book"><span>Book a class</span></a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </div>
+</nav>
+
+<div class="menu" id="menu">
+  <div class="wrap" style="width:100%;display:flex;flex-direction:column;flex:1">
+    <div class="menu-list">
+      <a href="index.html#about"><span>01</span>About</a>
+      <a href="index.html#classes"><span>02</span>Classes</a>
+      <a href="schedule.html"><span>03</span>Schedule</a>
+      <a href="index.html#contact"><span>04</span>Contact</a>
+    </div>
+    <div class="menu-foot">
+      <p class="sub">615 Channelside Dr. Suite 100-B<br>Tampa, FL 33602</p>
+      <p class="sub">813 538 0443<br>Hi@mybiomefit.com</p>
+    </div>
+  </div>
+</div>
+
+<header class="page-head">
+  <div class="wrap">
+    <span class="badge">Water Street · Tampa</span>
+    <h1>Book a class.</h1>
+    <p class="lede">Pick a time that works, reserve your spot, and we'll see you on the floor. New here? Any class on the schedule is a fine place to start — the coaches scale it to you.</p>
+  </div>
+</header>
+
+<section id="book">
+  <div class="wrap">
+    <p class="booking-note"><span></span>Live schedule · Tampa</p>
+    <div class="booking">
+      <!-- Mariana Tek Web Integrations — tenant "biomefit", region 48541, location 48717 (Tampa) -->
+      <div data-mariana-integrations="/schedule/daily/48541?locations=48717"></div>
+      <noscript>
+        <div class="noscript-fallback">
+          <p>The booking calendar needs JavaScript.</p>
+          <p style="margin-top:10px">Book directly at
+            <a href="https://biomefit.marianatek.com" style="color:#8C6A2F">biomefit.marianatek.com</a>
+            or call <a href="tel:+18135380443" style="color:#8C6A2F">813 538 0443</a>.</p>
+        </div>
+      </noscript>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-col f-brand">
+        <p style="max-width:28ch">Strength, conditioning and recovery in Water Street, Downtown Tampa.</p>
+      </div>
+      <div class="f-col"><h4>Visit</h4><p>615 Channelside Dr.<br>Suite 100-B<br>Tampa, FL 33602</p></div>
+      <div class="f-col"><h4>Contact</h4><a href="tel:+18135380443">813 538 0443</a><a href="mailto:Hi@mybiomefit.com">Hi@mybiomefit.com</a></div>
+      <div class="f-col"><h4>Explore</h4><a href="index.html#about">About</a><a href="index.html#classes">Classes</a><a href="schedule.html">Schedule</a></div>
+    </div>
+    <div class="f-base">
+      <span>© 2026 Biomefit</span>
+      <span>Water Street · Tampa</span>
+      <span>Designed by <a href="https://www.howellnmedia.com/" target="_blank" rel="noopener">Howell&rsquo;n Media</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* hamburger */
+var burger=document.getElementById('burger');
+burger.addEventListener('click',function(){
+  var open=document.body.classList.toggle('open');
+  document.body.classList.toggle('lock',open);
+  burger.setAttribute('aria-expanded',open?'true':'false');
+  burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+});
+addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&document.body.classList.contains('open')){
+    document.body.classList.remove('open','lock');burger.setAttribute('aria-expanded','false');
+  }
+});
+</script>
+
+<!-- Mariana Tek loader — must run on every page that hosts an embed -->
+<script>
+(function () {
+  var TENANT_NAME = 'biomefit';
+  var d = document;
+  var sA = ['polyfills', 'js'];
+  for (var i = 0; i < sA.length; i++) {
+    var s = d.createElement('script');
+    s.src = 'https://' + TENANT_NAME + '.marianaiframes.com/' + sA[i];
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>

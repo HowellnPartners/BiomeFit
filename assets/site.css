@@ -21,6 +21,8 @@
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+/* anchor targets must clear the fixed nav */
+[id]{scroll-margin-top:96px}
 body{
   background:var(--bg);color:var(--ink);
   font-family:var(--font-body);font-size:16px;line-height:1.65;

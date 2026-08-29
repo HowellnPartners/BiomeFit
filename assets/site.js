@@ -61,24 +61,70 @@
     if (e.key === 'Escape' && menuIsOpen()) closeMenu();
   });
 
-  // Menu links: same-page anchors just close it; real navigations need the
-  // pushed entry removed first, or Back would land on this page's menu state.
+  // Menu links.
+  // Same-page anchors were landing nowhere: the browser applied the #hash,
+  // then closeMenu()'s history.back() rewound it straight back off again.
+  // So handle the scroll ourselves after the menu entry has been popped.
   document.querySelectorAll('.menu-list a').forEach(function (a) {
     a.addEventListener('click', function (ev) {
       var href = a.getAttribute('href') || '';
+      var hash = href.indexOf('#');
       var samePage = href.charAt(0) === '#';
-      if (samePage) { closeMenu(); return; }
+
+      if (samePage) {
+        ev.preventDefault();
+        var target = document.querySelector(href);
+        var go = function () {
+          if (!target) return;
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', href);   // keep the URL honest, no new entry
+        };
+        if (pushedByMenu) {
+          pushedByMenu = false;
+          setMenu(false);
+          addEventListener('popstate', function once () {
+            removeEventListener('popstate', once);
+            setTimeout(go, 20);
+          });
+          history.back();
+        } else {
+          setMenu(false);
+          setTimeout(go, 20);
+        }
+        return;
+      }
+
+      // Cross-page link: drop the menu entry first, or Back lands on a menu state.
       if (pushedByMenu) {
         ev.preventDefault();
         pushedByMenu = false;
         setMenu(false);
-        history.back();                       // drop the menu entry
+        history.back();
         setTimeout(function () { location.href = href; }, 60);
       } else {
         setMenu(false);
       }
     });
   });
+
+  /* ---------------------------------------------------------------
+     Arriving with a #hash from another page.
+
+     The browser makes its jump before the hero video and webfonts have
+     settled the layout, so the target moves afterwards and the jump is
+     lost — you land at the top. Re-apply it once things have stopped
+     shifting, and again after load for slower connections.
+     --------------------------------------------------------------- */
+  if (location.hash.length > 1) {
+    var landTo = function () {
+      var t;
+      try { t = document.querySelector(location.hash); } catch (e) { return; }
+      if (t) t.scrollIntoView({ behavior: 'auto', block: 'start' });
+    };
+    landTo();
+    setTimeout(landTo, 120);
+    addEventListener('load', function () { setTimeout(landTo, 60); });
+  }
 
   /* ---------------------------------------------------------------
      Back link — go back if there's somewhere to go, else home.

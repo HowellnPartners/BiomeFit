@@ -36,24 +36,35 @@ Leave every MX and TXT record exactly as it is.
 
 ## What they are actually on today
 
-- Nameservers: `ns-cloud-a{1..4}.googledomains.com` (legacy Google Domains,
-  now administered through Squarespace)
-- Apex `A` → `151.101.2.159`, which is **Fastly** — Squarespace's CDN
-- `www` → CNAME to the apex
+- Registrar / DNS: **Squarespace Domains**, nameservers
+  `ns-cloud-a{1..4}.googledomains.com` (legacy Google Domains)
+- Apex `A` → `151.101.2.159` (Fastly)
+- Website hosting: **Flywheel** (WordPress). Flywheel fronts sites with Fastly,
+  which is why the apex resolves there.
+- Email: **Google Workspace**, unaffected by anything on the Flywheel side.
 
-So the current site is a **Squarespace site**, not self-hosted.
+So hosting and the domain are in two different places. That is good news:
+deleting the Flywheel site cannot touch DNS or email. The domain and its MX
+records stay exactly where they are.
 
-**This matters for the "hack."** A Squarespace site being defaced is almost
-always a compromised Squarespace login, not a server exploit — there is no
-server to exploit. Before or alongside launch, Biomefit should:
+### What this means for the compromise
 
-- reset the Squarespace account password and turn on 2FA
-- review Contributors / Permissions and remove anyone unrecognised
-- do the same for the Google Workspace admin account, and check for rogue
-  mail-forwarding rules or filters, which is a common way access is kept
-- check DNS for records nobody recognises
+It is a **WordPress** site, so there is a real install to exploit — an
+out-of-date plugin, theme or core, or a stolen admin login. WordPress
+compromises usually leave persistence behind: injected files, database
+entries, extra admin users, scheduled tasks.
 
-Rebuilding the site does not evict someone who still holds the login.
+Which makes deleting it the right call. Do not migrate, export or restore
+anything from that install into the new site — a clean rebuild is exactly the
+correct response, and that is what we have.
+
+Two things still worth doing:
+
+- Rotate any credentials that lived on or were reused with that WordPress
+  install, and the Flywheel login itself.
+- Google may have indexed spam pages injected during the hack. After launch,
+  check Search Console → Security Issues, and request a review if the site is
+  flagged. Otherwise those URLs can outlive the site.
 
 ## Deploying — GitHub Pages
 
@@ -95,6 +106,19 @@ The site currently hard-codes `https://www.mybiomefit.com` in `og:url`,
 `canonical` and `twitter:image` across all three pages. If the launch domain
 is the bare `mybiomefit.com` instead, those need updating first or link
 previews and search results will point at the wrong host.
+
+## Order of operations
+
+Do not delete the Flywheel site first — that leaves the domain pointing at
+nothing while everything else is set up.
+
+1. Enable GitHub Pages, confirm the site loads at
+   `https://howellnpartners.github.io/BiomeFit/`.
+2. Decide www vs apex (below) and fix the metadata if needed.
+3. Repoint DNS at Squarespace — A/AAAA/CNAME only, **MX and TXT untouched**.
+4. Wait for it to resolve, confirm the real domain serves the new site, then
+   turn on Enforce HTTPS.
+5. **Only then** delete the Flywheel site and cancel that hosting.
 
 ## After it is live
 

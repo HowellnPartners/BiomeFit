@@ -114,7 +114,7 @@ After launch, prime the caches — they hold old previews for a long time:
 real photography lands, a shot of the studio behind a dark scrim will convert
 far better than a wordmark on black. Worth redoing then.
 
-## 6. The Collab form needs an endpoint
+## 6. ~~The Collab form needs an endpoint~~ — CONNECTED 2026-08-29
 
 `collab.html` has a working form, but **a static site cannot send email on its
 own.** Near the bottom of the file:
@@ -158,3 +158,24 @@ Worth doing on the same pass that gets the file down to ~2-3MB:
     no audio · 8-12 seconds
 
 Source master is `BBzVideo-HomepageHero.mp4` (126MB, 4K, 19s).
+
+
+## 8. The Collab form is connected but untested
+
+`ENDPOINT` is set to `https://formspree.io/f/xjyvrkbb`.
+
+**Not verified end to end.** A GET on the endpoint returns 405, but so does
+a made-up form id, so that check distinguishes nothing. The only real test is
+a genuine submission, and that emails the studio — so it is Biomefit's to run,
+not something to fire off from here.
+
+Before launch, send one real enquiry through the live form and confirm:
+
+- it arrives at **Hi@mybiomefit.com**
+- the subject reads `Collab — <category> — <name>`
+- hitting **Reply** goes to the sender, not to Formspree
+- the page shows the in-place success message rather than opening a mail app
+
+Formspree's free tier also requires the first submission to be confirmed from
+the dashboard before it starts forwarding — so the very first test may sit
+there until someone clicks through.

@@ -364,6 +364,11 @@ var ENDPOINT = "";
       category:cat.value,
       message:document.getElementById('cf-msg').value.trim()
     };
+    // Formspree reads these two. _subject sets the email subject line so an
+    // enquiry is identifiable in the inbox without opening it; _replyto makes
+    // Reply go to the sender rather than to Formspree.
+    data._subject = 'Collab \u2014 ' + data.category + ' \u2014 ' + data.name;
+    data._replyto = data.email;
 
     var btn=form.querySelector('button[type=submit]');
     var label=btn.querySelector('span');

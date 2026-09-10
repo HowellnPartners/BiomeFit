@@ -5,7 +5,11 @@ have been made; every DNS edit is Biomefit's to make in their own account.
 
 ## Two things that need attention first
 
-### 1. The domain expires in 24 days — 22 September 2026
+### 1. ~~The domain expires in 24 days — 22 September 2026~~ — RENEWED
+
+Re-checked 2026-09-09: WHOIS now reads `Registry Expiry Date: 2027-09-22`.
+It auto-renewed ahead of the date, so this is settled until September 2027.
+Original note kept below for the reasoning.
 
 ```
 Registry Expiry Date: 2026-09-22

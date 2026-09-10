@@ -179,3 +179,10 @@ Before launch, send one real enquiry through the live form and confirm:
 Formspree's free tier also requires the first submission to be confirmed from
 the dashboard before it starts forwarding — so the very first test may sit
 there until someone clicks through.
+
+
+## 9. Domain renewal — resolved
+
+Flagged on 2026-08-29 as expiring 2026-09-22. Re-checked on 2026-09-09 and
+WHOIS now reads `Registry Expiry Date: 2027-09-22` — it auto-renewed. Nothing
+to chase. Worth a glance again around August 2027.
